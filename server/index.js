@@ -6,7 +6,7 @@ app.use(cors());
 app.use(express.json());
 
 // In-memory database
-const db = {
+const db = {//mongodb data base with two collection users and quizzes
   users: [],
   quizzes: []
 };
