@@ -1,0 +1,17 @@
+### Quiz Taking Endpoints
+@baseUrl = http://localhost:3000/api
+@studentToken = YOUR_STUDENT_TOKEN_HERE
+@quizId = YOUR_QUIZ_ID_HERE
+
+### Take a quiz (student)
+POST {{baseUrl}}/quizzes/{{quizId}}/take
+Content-Type: application/json
+Authorization: Bearer {{studentToken}}
+
+{
+  "answers": [3, 1, 0]
+}
+
+### Get student's own results
+GET {{baseUrl}}/results/me
+Authorization: Bearer {{studentToken}}

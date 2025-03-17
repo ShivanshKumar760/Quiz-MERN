@@ -13,8 +13,6 @@ function connection(ExpressInstance,PORT){
                 console.log(`Server is Running on port:${PORT}`);
             })
         },2000)
-    }).then(()=>{
-        console.log("Connected to server");
     }).catch((err)=>{
         console.log(err);
         console.log(err.message);
