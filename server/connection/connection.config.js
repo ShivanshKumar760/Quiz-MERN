@@ -1,18 +1,16 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
-function connection(ExpressInstance,PORT){
+function server_connection(ExpressInstance,PORT){
     mongoose.connect(process.env.MONGO_URL)
     .then(()=>{
         console.log("Connected to DB");
     }).then(()=>{
         console.log("Connecting to server please wait a second"); 
     }).then(()=>{
-        setTimeout(()=>{
-            ExpressInstance.listen(()=>{
-                console.log(`Server is Running on port:${PORT}`);
-            })
-        },2000)
+        ExpressInstance.listen(PORT, () => {  // ✅ Correct
+            console.log(`Server is Running on port: ${PORT}`);
+        });
     }).catch((err)=>{
         console.log(err);
         console.log(err.message);
@@ -21,4 +19,4 @@ function connection(ExpressInstance,PORT){
 };
 
 
-export default connection;
+export default server_connection;

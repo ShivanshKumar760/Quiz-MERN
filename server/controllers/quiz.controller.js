@@ -76,6 +76,10 @@ export const takeQuizTest=async (req,res)=>{
     try{
         const { id } = req.params;
         const quiz = await Quiz.findById(id);
+        const {answers} = req.body;
+        console.log(quiz);
+        console.log(quiz.questions);
+        console.log(req.body);
         if (!quiz){
             return res.status(404).json({ message: 'Quiz not found' });
         }
@@ -161,5 +165,46 @@ export const specificQuizResults= async (req, res) => {
       res.json(results);
     } catch (error) {
       res.status(500).json({ success: false, message: 'Server error', error: error.message });
+    }
+};
+
+
+export const getQuizQuestions = async (req, res) => {
+    try {
+        const { id } = req.params;
+        
+        // Find the quiz by ID
+        const quiz = await Quiz.findById(id);
+        
+        if (!quiz) {
+            return res.status(404).json({ success: false, message: 'Quiz not found' });
+        }
+        
+        // Check if the request is from the quiz creator (teacher)
+        const isCreator = quiz.createdBy.toString() === req.user._id.toString();
+        
+        // If the user is not the creator, remove correct answers
+        let quizData;
+        if (isCreator) {
+            // Send complete quiz with correct answers to creator
+            quizData = quiz;
+        } else {
+            // For students or other users, remove correct answers
+            quizData = quiz.toObject();
+            quizData.questions = quizData.questions.map(question => {
+                const { correctAnswer, ...questionWithoutAnswer } = question;
+                return questionWithoutAnswer;
+            });
+        }
+        
+        res.json({
+            success: true,
+            quiz: quizData
+        });
+        
+    } catch (error) {
+        console.log(error);
+        console.log(error.message);
+        res.status(500).json({ success: false, message: 'Server error', error: error.message });
     }
 };

@@ -1,6 +1,7 @@
 import express from 'express';
 import {getQuizzes,createQuiz,updateQuiz,deleteQuiz,takeQuizTest,myResults,allStudents_Quiz_Results,
-    specificQuizResults
+    specificQuizResults,
+    getQuizQuestions
 } from '../controllers/quiz.controller.js';
 import {authenticate,isTeacher} from '../middleware/authenticate.middleware.js';
 
@@ -13,6 +14,7 @@ router.get('/api/quizzes', getQuizzes);
 router.post('/api/quizzes', authenticate, isTeacher, createQuiz);
   
   // Only the teacher who created the quiz can update it
+router.get('/api/quizzes/:id', authenticate,  getQuizQuestions);
 router.put('/api/quizzes/:id', authenticate, isTeacher, updateQuiz);
   
   // Only the teacher who created the quiz can delete it

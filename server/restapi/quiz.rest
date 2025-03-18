@@ -1,6 +1,6 @@
 ### Quiz Endpoints
 @baseUrl = http://localhost:3000/api
-@teacherToken = YOUR_TEACHER_TOKEN_HERE
+@teacherToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2Q4OTY4N2YyYmM4NTg1MTcwOGEzODQiLCJyb2xlIjoidGVhY2hlciIsImlhdCI6MTc0MjI0NzU3MSwiZXhwIjoxNzQyMzMzOTcxfQ.sPNdwN9ZKH1LKysiiaDJ4u3_lEOeSVwNOdPh3XYEFc4
 @quizId = YOUR_QUIZ_ID_HERE
 
 ### Get all quizzes (no auth required)
